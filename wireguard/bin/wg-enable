@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+net_ports=`ls /sys/class/net`
+if_port=`echo $net_ports | awk '{for(i=1;i<=NF;i++){if($i ~ /^e.+/){print $i;break}}}'`
+
+ip link add dev wg0 type wireguard
+ip addr add dev wg0 10.0.0.1/24
+ip link set wg0 up
+wg setconf wg0 /etc/wireguard/wg0.conf
+
+iptables -A FORWARD -i wg0 -j ACCEPT
+iptables -A FORWARD -o wg0 -j ACCEPT
+iptables -t nat -A POSTROUTING -o $if_port -j MASQUERADE

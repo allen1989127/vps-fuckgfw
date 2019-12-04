@@ -1,0 +1,11 @@
+[Unit]
+Description=Wireguard Enable Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/local/bin/wg-enable
+
+[Install]
+WantedBy=multi-user.target
