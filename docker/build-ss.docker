@@ -2,4 +2,8 @@ FROM ubuntu:18.04
 MAINTAINER Scan Z
 
 RUN apt update \
-    && apt install shadowsocks
+    && apt install -y shadowsocks
+
+VOLUME ["config/shadowsocks"]
+
+ENTRYPOINT ["ssserver", "-c", "/etc/shadowsocks/config.json", "start"]
