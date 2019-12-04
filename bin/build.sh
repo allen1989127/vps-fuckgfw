@@ -6,7 +6,7 @@ ss_image_name="ss-image"
 function build-ss()
 {
     docker build -f docker/build-ss.docker -t $ss_image_name:$version .
-    docker run -d -p 12123:$1 -v `pwd`/config/shadowsocks:/etc/shadowsocks $ss_image_name:$version
+    docker run -d -p $1:12123 -v `pwd`/config/shadowsocks:/etc/shadowsocks $ss_image_name:$version
 }
 
 function print-usage()
