@@ -16,21 +16,23 @@ function print-usage()
     echo -e "\t-s\tshadowsocks map port"
 }
 
-while getopts 's:' c
+while getopts 's:' c 
 do
     case $c in
-        s) ss_map_port=$OPTARG ;;
-        *) print-usage; exit(1);;
+        s) 
+            ss_map_port=$OPTARG
+            ;;
+        *) 
+            print-usage
+            exit 1
+            ;;
     esac
 done
 
-for args in $ss_map_port
-do
-    if [ "$args" == "" ]
-    then
-        print-usage
-        exit(2)
-    fi
-done
+if [ "$ss_map_port" == "" ]
+then
+    print-usage
+    exit 2
+fi
 
 build-ss $ss_map_port
