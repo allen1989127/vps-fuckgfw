@@ -3,7 +3,7 @@
     "server_port": 12123,
     "local_address": "127.0.0.1",
     "local_port":1080,
-    "password":"",
+    "password":"{{your-password}}",
     "timeout":60,
     "method":"aes-256-cfb",
     "fast_open": false,
