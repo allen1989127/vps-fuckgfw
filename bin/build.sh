@@ -37,8 +37,8 @@ function build-wg()
     c_pri_key=`cat $wg_folder/client-private-key`
     c_pub_key=`cat $wg_folder/client-public-key`
 
-    sed -i "s/_server_private_key/${s_pri_key}/g" $wg_folder/wg0.conf
-    sed -i "s/_client_public_key/${c_pub_key}/g" $wg_folder/wg0.conf
+    sed -i "s#_server_private_key#${s_pri_key}#g" $wg_folder/wg0.conf
+    sed -i "s#_client_public_key#${c_pub_key}#g" $wg_folder/wg0.conf
     sed -i "s/_port/${wg_port}/g" $wg_folder/wg0.conf
 
     cp -vp wireguard/bin/wg-enable /usr/local/bin/
