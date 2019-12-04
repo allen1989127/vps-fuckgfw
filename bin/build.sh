@@ -108,7 +108,7 @@ do
     case $service_type in
         ss)
             service_type=$TYPE_SS
-            if [ "ss_map_port" == "" ]
+            if [ "$ss_map_port" == "" ]
             then
                 print-usage
                 exit 3
@@ -118,7 +118,7 @@ do
             ;;
         v2ray)
             service_type=$TYPE_V2RAY
-            if [ "v2ray_map_port" == "" ]
+            if [ "$v2ray_map_port" == "" ]
             then
                 print-usage
                 exit 4
@@ -128,7 +128,7 @@ do
             ;;
         wg)
             service_type=$TYPE_WG
-            if [ "wg_map_port" == "" ]
+            if [ "$wg_map_port" == "" ]
             then
                 print-usage
                 exit 5
