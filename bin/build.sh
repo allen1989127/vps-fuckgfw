@@ -93,13 +93,13 @@ then
         print-usage
         exit 2
     fi
+
+    build-ss $ss_map_port
+    build-v2ray $v2ray_map_port
+    build-wg $wg_map_port
+
+    exit 0
 fi
-
-build-ss $ss_map_port
-build-v2ray $v2ray_map_port
-build-wg $wg_map_port
-
-exit 0
 
 service_types=`echo $services_types | sed 's/,/ /g'`
 
