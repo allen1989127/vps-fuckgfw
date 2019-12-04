@@ -20,8 +20,17 @@ while getopts 's:' c
 do
     case $c in
         s) ss_map_port=$OPTARG ;;
-        *) print-usage;;
+        *) print-usage; exit(1);;
     esac
+done
+
+for args in $ss_map_port
+do
+    if [ "$args" == "" ]
+    then
+        print-usage
+        exit(2)
+    fi
 done
 
 build-ss $ss_map_port
