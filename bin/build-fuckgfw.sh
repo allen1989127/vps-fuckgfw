@@ -5,7 +5,7 @@
 version=`cat version`
 ss_image_name="ss-image"
 v2ray_image_name="v2ray-image"
-v2ray_image_name="trojan-image"
+trojan_image_name="trojan-image"
 
 function build-ss()
 {
@@ -55,7 +55,7 @@ function build-wg()
 
 function build-trojan()
 {
-    source trojan/constants
+    source trojan/env
     docker build --build-arg IP --build-arg URL --build-arg GD_Key --build-arg GD_Secret --build-arg GD_Email -f trojan/docker/build-trojan.docker -t $trojan_image_name:$version .
     docker run --restart=always --name trojan -d -p 443:443 -p 80:80 -v `pwd`/trojan/etc/trojan:/usr/local/etc/trojan $trojan_image_name:$version
 }
@@ -64,7 +64,7 @@ function print-usage()
 {
     echo -e "Usage: bash bin/build-fuckgfw.sh [OPTION]..."
     echo -e "options."
-    echo -e "\t-t\tall or type of services, can select ss|v2ray|wg, split with ,"
+    echo -e "\t-t\tall or type of services, can select ss|v2ray|wg|trojan, split with ,"
     echo -e "\t-s\tshadowsocks map port"
     echo -e "\t-v\tv2ray map port"
     echo -e "\t-w\twireguard map port"
@@ -148,6 +148,7 @@ do
         trojan)
             service_type=$TYPE_TROJAN
             build-trojan
+            ;;
         *)
             print-usage
             exit 6

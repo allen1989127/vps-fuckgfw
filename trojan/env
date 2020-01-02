@@ -1,0 +1,5 @@
+export IP=<ip>
+export URL=<url>
+export GD_Key=<gd_key>
+export GD_Secret=<gd_secret>
+export GD_Email=<gd_email>

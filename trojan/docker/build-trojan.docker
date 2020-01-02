@@ -37,3 +37,5 @@ RUN sed -i "s/<ip>/$IP/g" /etc/nginx/sites-enabled/default
 
 COPY trojan/etc/cron/update-trojan /etc/cron.monthly/update-trojan
 RUN chmod 0755 /etc/cron.monthly/update-trojan
+
+ENTRYPOINT /bin/bash -c "/usr/sbin/nginx -t -q -g 'daemon on; master_process on;' && /usr/sbin/nginx -g 'daemon on; master_process on;' && /usr/sbin/cron && /usr/local/bin/trojan /usr/local/etc/trojan/config.json"
