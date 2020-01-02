@@ -1,0 +1,39 @@
+FROM ubuntu:18.04
+MAINTAINER Scan Z
+
+ARG IP
+ENV IP $IP
+
+ARG URL
+ENV URL $URL
+
+ARG GD_Key
+ENV GD_Key $GD_Key
+
+ARG GD_Secret
+ENV GD_Secret $GD_Secret
+
+ARG GD_Email
+ENV GD_Email $GD_Email
+
+RUN apt update \
+    && apt install -y socat cron curl psmisc \
+    && apt install -y libcap2-bin xz-utils \
+    && apt install -y nginx
+
+RUN mkdir /usr/local/etc/certfiles \
+    && bash -c "curl https://get.acme.sh | sh"
+
+RUN /root/.acme.sh/acme.sh --issue --dns dns_gd -d $URL \
+    && /root/.acme.sh/acme.sh --install-cert -d $URL --key-file /usr/local/etc/certfiles/private.key --fullchain-file /usr/local/etc/certfiles/certificate.crt \
+    && /root/.acme.sh/acme.sh --upgrade --auto-upgrade
+
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)" || exit 0
+
+RUN unlink /etc/nginx/sites-enabled/default
+COPY trojan/etc/nginx/default /etc/nginx/sites-enabled/default
+RUN sed -i "s/<url>/$URL/g" /etc/nginx/sites-enabled/default
+RUN sed -i "s/<ip>/$IP/g" /etc/nginx/sites-enabled/default
+
+COPY trojan/etc/cron/update-trojan /etc/cron.monthly/update-trojan
+RUN chmod 0755 /etc/cron.monthly/update-trojan

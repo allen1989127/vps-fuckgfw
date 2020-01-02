@@ -1,0 +1,27 @@
+server {
+    listen 127.0.0.1:80 default_server;
+
+    server_name <url>;
+
+    location / {
+        proxy_pass https://www.ietf.org;
+    }
+
+}
+
+server {
+    listen 127.0.0.1:80;
+
+    server_name <ip>;
+
+    return 301 https://<url>$request_uri;
+}
+
+server {
+    listen 0.0.0.0:80;
+    listen [::]:80;
+
+    server_name _;
+
+    return 301 https://$host$request_uri;
+}
