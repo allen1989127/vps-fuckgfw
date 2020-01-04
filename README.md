@@ -29,6 +29,7 @@ linode和vultr均使用ubuntu 18.04部署过,均可正常部署
 * 下载vps-fuckgfw项目
 * 进入vps-fuckgfw目录,修改shadowsocks的配置文件,文件位于shadowsocks/config/config.json,将{{your-password}}改为自己的密码
 * 修改v2ray的配置文件,文件位于v2ray/config/config.json,将{{your-uuid}}以及{{your-id}}改为自己的id,uuid可以通过/proc/sys/kernel/random/uuid中生成,id可随意更改为自己所需的值
+* 修改trojan的配置文件,将trojan/env中的常量修改成自己vps对应的参数,IP为vps的公网IP,URL为申请的域名,记得将自己域名绑定到vps的公网IP上,由于我自己申请的域名位于godaddy上,因此其余的变量均为godaddy上的配置,godaddy的key,secret均可在**https://developer.godaddy.com/keys**上获取.同时将trojan/etc/trojan/config.json中的{{your-password}}改为你自己的密码即可
 * 以上步骤即配置完成shadowsocks以及v2ray,当然,这些只是基础配置,也可以针对配置文件进行更加复杂的配置,这里不再进行阐述
 * 完成配置后通过类似下面的命令执行部署
 
