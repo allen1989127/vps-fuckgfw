@@ -24,7 +24,7 @@ RUN apt update \
 RUN mkdir /usr/local/etc/certfiles \
     && bash -c "curl https://get.acme.sh | sh"
 
-RUN /root/.acme.sh/acme.sh --issue --dns dns_gd -d $URL \
+RUN /root/.acme.sh/acme.sh --server letsencrypt --issue --dns dns_gd -d $URL \
     && /root/.acme.sh/acme.sh --install-cert -d $URL --key-file /usr/local/etc/certfiles/private.key --fullchain-file /usr/local/etc/certfiles/certificate.crt \
     && /root/.acme.sh/acme.sh --upgrade --auto-upgrade
 
